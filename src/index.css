@@ -61,7 +61,7 @@
   line-gap-override: 0%;
 }
 
-/* nav: n12-banner-retract - banner fill: solid signal, dismiss: none, bar scroll: sticky */
+/* nav: n11-mega-menu - columns: 2, feature cell: promo card, scrim: dim only, open on: hover+click; a retracting announcement strip rides above it */
 /* footer: ft5-statement */
 /* panel: mm4-full-bleed-canvas */
 
@@ -85,8 +85,13 @@
   --signal-900: 60 59 56;
   --on-signal: 10 10 10;
   --header-height: 4rem;
+  --banner-h: 2.75rem;
+  --nav-duration: 200ms;
+  --nav-fade: 160ms;
+  --nav-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --thumb-bar-h: 4.5rem;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --z-scrim: 35;
   --z-header: 40;
   --z-menu: 45;
   --z-thumb: 50;
@@ -170,6 +175,61 @@
 }
 
 @layer components {
+  /* The banner and bar travel together; retracting moves the pair up by the
+     banner's own height, so the bar docks to the top with no gap. */
+  .nav-shell {
+    transition: transform var(--nav-duration) var(--nav-ease);
+  }
+  .nav-shell[data-banner][data-compact] {
+    transform: translateY(calc(var(--banner-h) * -1));
+  }
+  /* Visibility changes at the visible end of the transition in both
+     directions, so the same declaration opens and closes. */
+  .nav-panel {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-0.5rem);
+    transition:
+      opacity var(--nav-duration) var(--nav-ease),
+      transform var(--nav-duration) var(--nav-ease),
+      visibility var(--nav-duration);
+  }
+  .nav-panel[data-state='open'] {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+  }
+  .nav-panel__body {
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      opacity var(--nav-fade) var(--nav-ease),
+      visibility var(--nav-fade);
+  }
+  .nav-panel__body.is-active {
+    visibility: visible;
+    opacity: 1;
+  }
+  .nav-scrim {
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      opacity var(--nav-duration) var(--nav-ease),
+      visibility var(--nav-duration);
+  }
+  .nav-scrim[data-state='open'] {
+    visibility: visible;
+    opacity: 1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nav-shell,
+    .nav-panel,
+    .nav-panel__body,
+    .nav-scrim {
+      transition: none;
+    }
+  }
+
   /* The logo leans forward, so the display type leans with it. */
   .slant {
     @apply inline-block font-display font-black uppercase leading-[0.9];
@@ -186,7 +246,7 @@
       radial-gradient(circle at 90% 100%, rgb(var(--bone-50) / 0.05), transparent 50%);
   }
   .tap {
-    @apply cursor-pointer touch-manipulation transition-transform duration-150 ease-out active:scale-[0.97];
+    @apply cursor-pointer touch-manipulation transition-transform duration-nav ease-nav active:scale-[0.97];
   }
   .btn {
     @apply tap inline-flex h-12 items-center justify-center gap-3 px-7 font-mono text-xs font-bold uppercase transition-colors focus-visible:outline-signal-500;

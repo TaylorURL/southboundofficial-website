@@ -34,11 +34,21 @@ export default {
         sans: ['Archivo', 'Archivo Fallback', 'sans-serif'],
         mono: ['Space Mono', 'Space Mono Fallback', 'Menlo', 'monospace'],
       },
-      spacing: { header: 'var(--header-height)', thumb: 'var(--thumb-bar-h)' },
+      spacing: {
+        header: 'var(--header-height)',
+        thumb: 'var(--thumb-bar-h)',
+        banner: 'var(--banner-h)',
+      },
+      transitionDuration: { nav: 'var(--nav-duration)', 'nav-fade': 'var(--nav-fade)' },
       letterSpacing: { label: '0.18em' },
       maxWidth: { shell: '1240px' },
-      transitionTimingFunction: { DEFAULT: 'var(--ease-out)', out: 'var(--ease-out)' },
+      transitionTimingFunction: {
+        DEFAULT: 'var(--ease-out)',
+        out: 'var(--ease-out)',
+        nav: 'var(--nav-ease)',
+      },
       zIndex: {
+        scrim: 'var(--z-scrim)',
         header: 'var(--z-header)',
         menu: 'var(--z-menu)',
         thumb: 'var(--z-thumb)',

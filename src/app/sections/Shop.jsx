@@ -16,13 +16,11 @@ function Tile({ href, label, ground, wide = false, labelClass = '', children }) 
     <li className={wide ? 'col-span-2 lg:col-span-1' : undefined}>
       <a
         href={href}
-        className={
-          'tap group relative grid place-items-center overflow-hidden rounded-3xl hover:ring-2 hover:ring-signal-500 cursor-pointer active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal-500 ' +
-          (wide ? 'aspect-[2/1] lg:aspect-square ' : 'aspect-square ') +
-          ground
-        }
+        data-wide={wide ? '' : undefined}
+        className="tap group relative grid aspect-square place-items-center overflow-hidden rounded-3xl hover:ring-2 hover:ring-signal-500 data-[wide]:aspect-[2/1] lg:data-[wide]:aspect-square cursor-pointer active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal-500"
       >
-        <div className="absolute inset-0 grid place-items-center opacity-60 transition-transform duration-300 group-hover:scale-105">
+        <div aria-hidden="true" className={`absolute inset-0 ${ground}`} />
+        <div className="absolute inset-0 grid place-items-center opacity-60 transition-transform duration-nav group-hover:scale-105">
           {children}
         </div>
         <span
