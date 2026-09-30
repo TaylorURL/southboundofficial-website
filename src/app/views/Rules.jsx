@@ -114,10 +114,10 @@ export default function Rules() {
             approximate retail value of $
             <Fill value={GIVEAWAY.prizeValue} missing="Retail value" />.
           </p>
-          <p>No substitution, cash equivalent or transfer of the prize is allowed.</p>
+          <p>The winner may not substitute, transfer or take cash for the prize.</p>
           <p>
-            The Sponsor may substitute a prize of equal or greater value if the stated prize becomes
-            unavailable.
+            If the stated prize becomes unavailable, the Sponsor may substitute a prize of equal or
+            greater value.
           </p>
           <p>
             The winner is responsible for all taxes, fees and costs not stated here, including
@@ -143,11 +143,8 @@ export default function Rules() {
             must respond within 72 hours.
           </p>
           <p>
-            Before the prize is awarded, the potential winner may be asked to sign an affidavit of
-            eligibility.
-          </p>
-          <p>
-            They may also be asked to sign a liability and publicity release and to show photo ID.
+            Before any award, the potential winner may have to sign an affidavit of eligibility and
+            a liability and publicity release, and show photo ID.
           </p>
           <p>
             If the potential winner does not respond in time, is ineligible or does not comply with
@@ -157,13 +154,10 @@ export default function Rules() {
 
         <Rule title="Publicity">
           <p>
-            Except where prohibited, accepting the prize gives the Sponsor permission to use the
-            winner’s name, city, state and likeness without further payment.
+            Except where prohibited, accepting the prize lets the Sponsor announce the winner here
+            and on its social media with their name, city, state and likeness.
           </p>
-          <p>
-            That use is limited to announcing the winner on this site and on the Sponsor’s social
-            media.
-          </p>
+          <p>No further payment is owed for that use.</p>
         </Rule>
 
         <Rule title="General Conditions">
@@ -183,12 +177,10 @@ export default function Rules() {
             If it is cancelled, the prize may be awarded by random drawing from the eligible entries
             received before the cancellation.
           </p>
+          <p>The Sponsor and its owners, employees and agents are the “Released Parties.”</p>
           <p>
-            By entering, you release the Sponsor and its owners, employees and agents from any
-            liability for injury, loss or damage of any kind.
-          </p>
-          <p>
-            That release covers taking part in the Sweepstakes and receiving or using the prize.
+            By entering, you release them from liability for any injury, loss or damage arising from
+            taking part or from receiving or using the prize.
           </p>
         </Rule>
 
@@ -205,7 +197,7 @@ export default function Rules() {
             For the winner’s name by mail, send a self-addressed stamped envelope to {sponsor},
             Attn: SouthBound Winner, {address}.
           </p>
-          <p>It must arrive within 30 days after the Entry Period ends.</p>
+          <p>Send it within 30 days after the Entry Period ends.</p>
           <p>
             Questions: <Fill value={SPONSOR.email} missing="Sponsor's contact email" />.
           </p>
