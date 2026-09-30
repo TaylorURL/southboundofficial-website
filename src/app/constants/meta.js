@@ -6,7 +6,7 @@ export const META = {
   '/': {
     title: 'SouthBound | Truck Merch and Giveaways',
     description:
-      'SouthBound merch for the truck crowd. Shirts, hoodies, caps and decals, with every order entered into the next giveaway.',
+      'SouthBound merch for the truck crowd. Shirts, hoodies, caps and decals, with every order entered into the giveaway open at checkout.',
   },
   '/rules': {
     title: 'Official Rules | SouthBound Giveaways',

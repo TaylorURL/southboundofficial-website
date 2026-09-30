@@ -19,15 +19,15 @@ export default function Privacy() {
           nobody and lasts until you clear your site data.
         </p>
         <p>
-          If a page breaks, the error, the page address and your browser version are sent so it can
-          be fixed. Nothing you type is included.
+          If a page breaks, the site sends the error, the page address and your browser version so
+          it can be fixed. Nothing you type is included.
         </p>
       </Clause>
 
       <Clause title="Giveaway Entries">
         <p>
-          The name and contact details on an entry are used to run the giveaway and to reach the
-          winner. How that works is in the{' '}
+          SouthBound uses the name and contact details on an entry to run the giveaway and to reach
+          the winner. How that works is in the{' '}
           <Link
             to="/rules"
             className="tap underline underline-offset-2 hover:text-bone-50 cursor-pointer active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal-500"

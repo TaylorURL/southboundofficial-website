@@ -51,7 +51,7 @@ export default function Footer() {
           >
             Privacy page
           </Link>{' '}
-          says what is kept.
+          says what the site keeps.
         </p>
       </div>
       <div className="text-bone-50">
