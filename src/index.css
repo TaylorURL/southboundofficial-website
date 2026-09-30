@@ -61,10 +61,72 @@
   line-gap-override: 0%;
 }
 
+/* nav: n12-banner-retract - banner fill: solid signal, dismiss: none, bar scroll: sticky */
+/* footer: ft5-statement */
+/* panel: mm4-full-bleed-canvas */
+
+/* The token block. Every colour the site draws is one of these, held as RGB
+   channels so Tailwind can lay an opacity over any of them. Dark is the brand;
+   light and gray are the same roles re-inked, chosen from the menu. */
+:root,
+:root[data-theme='dark'] {
+  --ink-950: 5 5 5;
+  --ink-900: 10 10 10;
+  --ink-800: 20 20 20;
+  --ink-700: 31 31 31;
+  --ink-600: 43 43 43;
+  --bone-50: 246 245 242;
+  --bone-100: 233 231 226;
+  --bone-300: 185 182 174;
+  --bone-500: 133 130 123;
+  --signal-400: 255 255 253;
+  --signal-500: 250 249 246;
+  --signal-600: 214 212 206;
+  --signal-900: 60 59 56;
+  --on-signal: 10 10 10;
+  --header-height: 4rem;
+  --thumb-bar-h: 4.5rem;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --z-header: 40;
+  --z-menu: 45;
+  --z-thumb: 50;
+  --z-click: 60;
+  color-scheme: dark;
+}
+:root[data-theme='light'] {
+  --ink-950: 250 249 246;
+  --ink-900: 244 242 238;
+  --ink-800: 232 230 225;
+  --ink-700: 220 217 211;
+  --ink-600: 205 202 195;
+  --bone-50: 14 14 14;
+  --bone-100: 34 34 34;
+  --bone-300: 78 76 72;
+  --bone-500: 112 109 103;
+  --signal-400: 40 40 40;
+  --signal-500: 14 14 14;
+  --signal-600: 60 60 60;
+  --signal-900: 200 198 192;
+  --on-signal: 250 249 246;
+  color-scheme: light;
+}
+:root[data-theme='gray'] {
+  --ink-950: 36 36 38;
+  --ink-900: 44 44 46;
+  --ink-800: 54 54 57;
+  --ink-700: 66 66 69;
+  --ink-600: 80 80 84;
+  color-scheme: dark;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: calc(var(--header-height) + 1rem);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
   }
   @media (prefers-reduced-motion: reduce) {
     html {
@@ -72,10 +134,38 @@
     }
   }
   body {
-    @apply bg-ink-900 font-sans text-bone-50 antialiased;
+    @apply bg-ink-900 font-sans text-bone-50;
+    overflow-x: clip;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+  }
+  p {
+    text-wrap: pretty;
   }
   ::selection {
-    @apply bg-bone-50 text-ink-900;
+    @apply bg-signal-500 text-on-signal;
+  }
+  a,
+  button,
+  summary {
+    touch-action: manipulation;
+  }
+  :focus-visible {
+    outline: 2px solid rgb(var(--signal-500));
+    outline-offset: 3px;
+  }
+  #site-menu {
+    overscroll-behavior: contain;
+  }
+  /* A section below the first screen costs nothing until it is near. */
+  .below-fold {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 900px;
   }
 }
 
@@ -86,24 +176,75 @@
     transform: skewX(-9deg);
   }
   .label {
-    @apply font-mono text-[11px] uppercase tracking-label;
+    @apply font-mono text-[11px] uppercase;
+    letter-spacing: 0.18em;
   }
-  .outline-type {
-    color: transparent;
-    -webkit-text-stroke: 2px rgb(246 245 242 / 0.14);
-  }
-  .grain {
+  /* A soft light falling across a panel, so a flat tile reads as a surface. */
+  .sheen {
     background-image:
-      radial-gradient(circle at 20% 0%, rgb(255 255 255 / 0.07), transparent 55%),
-      radial-gradient(circle at 90% 100%, rgb(255 255 255 / 0.05), transparent 50%);
+      radial-gradient(circle at 20% 0%, rgb(var(--bone-50) / 0.07), transparent 55%),
+      radial-gradient(circle at 90% 100%, rgb(var(--bone-50) / 0.05), transparent 50%);
+  }
+  .tap {
+    @apply cursor-pointer touch-manipulation transition-transform duration-150 ease-out active:scale-[0.97];
   }
   .btn {
-    @apply inline-flex h-12 items-center justify-center gap-3 px-7 font-mono text-xs font-bold uppercase tracking-label transition-colors;
+    @apply tap inline-flex h-12 items-center justify-center gap-3 px-7 font-mono text-xs font-bold uppercase transition-colors focus-visible:outline-signal-500;
+    letter-spacing: 0.18em;
   }
   .btn-solid {
     @apply btn bg-bone-50 text-ink-900 hover:bg-bone-100;
   }
   .btn-line {
     @apply btn border border-bone-50/30 text-bone-50 hover:border-bone-50;
+  }
+  .btn-signal {
+    @apply btn bg-signal-500 text-on-signal hover:bg-signal-400;
+    box-shadow: 0 0 32px rgb(var(--signal-500) / 0.45);
+  }
+  .btn-signal-line {
+    @apply btn border-2 border-signal-500 text-bone-50 hover:bg-signal-500/15;
+  }
+  /* The giveaway lines glow, so it is the first thing the eye lands on. */
+  .glow {
+    text-shadow:
+      0 0 18px rgb(var(--signal-500) / 0.65),
+      0 0 2px rgb(var(--signal-500) / 0.9);
+  }
+  :root[data-theme='light'] .glow {
+    text-shadow: none;
+  }
+  /* The words behind the hero fade out downward, so the logo in front of them reads first. */
+  .fade-type {
+    color: rgb(var(--bone-50) / 0.9);
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent 92%);
+    mask-image: linear-gradient(to bottom, black, transparent 92%);
+  }
+  .click-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: var(--z-click);
+  }
+  .click-ripple {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    translate: -50% -50%;
+    border-radius: 50%;
+    border: 1.5px solid rgb(var(--signal-500));
+    opacity: 0.9;
+    animation: click-ripple 280ms var(--ease-out) forwards;
+  }
+  @keyframes click-ripple {
+    to {
+      transform: scale(4.5);
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .click-ripple {
+      display: none;
+    }
   }
 }

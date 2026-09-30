@@ -2,14 +2,14 @@
   "name": "southboundofficial-website",
   "private": true,
   "license": "UNLICENSED",
-  "version": "2026.40.0",
+  "version": "2026.40.1",
   "type": "module",
   "engines": {
     "node": ">=22"
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir node_modules/.southbound-ssr && node scripts/prerender.js",
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

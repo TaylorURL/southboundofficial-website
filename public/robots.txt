@@ -1,2 +1,21 @@
 User-agent: *
 Allow: /
+
+# AI crawlers are welcome: a model that has read the site can point people at
+# the drop and the current giveaway.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://southboundofficial.website/sitemap.xml

@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 const UNITS = [
   ['Days', 86400000],
   ['Hours', 3600000],
-  ['Min', 60000],
-  ['Sec', 1000],
+  ['Minutes', 60000],
+  ['Seconds', 1000],
 ];
 
 function split(ms) {
@@ -18,25 +18,27 @@ function split(ms) {
 
 export default function Countdown({ endsAt }) {
   const end = Date.parse(endsAt);
-  const [now, setNow] = useState(() => Date.now());
+  // No clock until the page is live in a browser: the build writes this markup
+  // ahead of time, and a time read then would disagree with the one read here.
+  const [now, setNow] = useState(null);
 
   useEffect(() => {
+    setNow(Date.now());
     const timer = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(timer);
   }, []);
 
   if (Number.isNaN(end)) return null;
-  const parts = split(end - now);
+  const parts = now === null ? UNITS.map(([label]) => [label, '--']) : split(end - now);
 
   return (
-    <div className="flex items-stretch gap-2 sm:gap-3" role="timer" aria-live="off">
+    <div className="grid grid-cols-4 gap-4 sm:gap-8" role="timer" aria-live="off">
       {parts.map(([label, value]) => (
-        <div
-          key={label}
-          className="flex w-[4.25rem] flex-col items-center border border-bone-50/20 bg-ink-950/60 py-3 sm:w-20"
-        >
-          <span className="font-display text-4xl font-black tabular-nums sm:text-5xl">{value}</span>
-          <span className="label mt-1 text-bone-300">{label}</span>
+        <div key={label} className="flex flex-col items-center">
+          <span className="glow font-display text-5xl font-black tabular-nums text-signal-500 sm:text-7xl">
+            {value}
+          </span>
+          <span className="label mt-1 text-bone-100">{label}</span>
         </div>
       ))}
     </div>

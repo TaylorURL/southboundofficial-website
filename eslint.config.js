@@ -32,4 +32,10 @@ export default [
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
   },
+  // Build scripts and the server entry run in Node, never in a browser.
+  {
+    files: ['scripts/**/*.js', 'src/entry-server.jsx', 'middleware.js'],
+    languageOptions: { globals: { ...globals.node } },
+    rules: { 'react-refresh/only-export-components': 'off' },
+  },
 ];

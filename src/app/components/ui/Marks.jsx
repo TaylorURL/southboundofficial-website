@@ -11,7 +11,7 @@ export function Wordmark({ className = '', eager = false, alt = 'SouthBound' }) 
       fetchPriority={eager ? 'high' : undefined}
       loading={eager ? 'eager' : 'lazy'}
       decoding="async"
-      className={`h-auto ${className}`}
+      className={`h-auto object-contain ${className}`}
     />
   );
 }
@@ -27,7 +27,7 @@ export function Monogram({ className = '', alt = 'SB' }) {
       alt={alt}
       loading="lazy"
       decoding="async"
-      className={`h-auto ${className}`}
+      className={`h-auto object-contain ${className}`}
     />
   );
 }
