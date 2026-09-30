@@ -31,8 +31,8 @@ export default function Terms() {
 
       <Clause title="Orders">
         <p>
-          Products marked Drops Soon are not for sale yet. Prices, shipping and returns are shown
-          before you pay once a product goes on sale.
+          Products marked Drops Soon are not for sale yet. Once a product goes on sale, you see its
+          price, shipping and returns before you pay.
         </p>
       </Clause>
 
