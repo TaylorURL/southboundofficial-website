@@ -46,20 +46,18 @@ const PAGE = `<!doctype html>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex" />
-    <title>Temporarily unavailable</title>
+    <title>Temporarily Unavailable | SouthBound</title>
     <style>
-      :root { color-scheme: light dark; }
-      body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #fafafa; color: #1a1a1a; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
-      main { max-width: 32rem; padding: 2rem 1.5rem; text-align: center; }
-      h1 { margin: 0 0 0.75rem; font-size: 1.5rem; line-height: 1.3; }
-      p { margin: 0 0 1rem; color: #4a4a4a; line-height: 1.6; }
-      .owner { font-size: 0.875rem; color: #6a6a6a; }
-      a { color: inherit; }
+      :root { color-scheme: light dark; --ground: 250 250 250; --ink: 26 26 26; --muted: 74 74 74; --faint: 106 106 106; }
       @media (prefers-color-scheme: dark) {
-        body { background: #141414; color: #f0f0f0; }
-        p { color: #c4c4c4; }
-        .owner { color: #9a9a9a; }
+        :root { --ground: 20 20 20; --ink: 240 240 240; --muted: 196 196 196; --faint: 154 154 154; }
       }
+      body { margin: 0; min-height: 100dvh; display: grid; place-items: center; background: rgb(var(--ground)); color: rgb(var(--ink)); font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+      main { max-width: 32rem; padding: 2rem 1.5rem; text-align: center; }
+      h1 { margin: 0 0 0.75rem; font-size: 1.5rem; line-height: 1.3; overflow-wrap: anywhere; text-wrap: balance; }
+      p { margin: 0 0 1rem; color: rgb(var(--muted)); line-height: 1.6; }
+      .owner { font-size: 0.875rem; color: rgb(var(--faint)); }
+      a { color: inherit; }
     </style>
   </head>
   <body>
