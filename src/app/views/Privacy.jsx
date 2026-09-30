@@ -26,7 +26,7 @@ export default function Privacy() {
           If a page breaks, the site sends the error, the page address and your browser version so
           it can be fixed.
         </p>
-        <p>Nothing you type is included.</p>
+        <p>The error report never includes anything you type.</p>
       </Clause>
 
       <Clause title="Giveaway Entries">
