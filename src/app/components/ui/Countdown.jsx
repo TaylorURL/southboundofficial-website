@@ -32,7 +32,12 @@ export default function Countdown({ endsAt }) {
   const parts = now === null ? UNITS.map(([label]) => [label, '--']) : split(end - now);
 
   return (
-    <div className="grid grid-cols-4 gap-4 sm:gap-8" role="timer" aria-live="off">
+    <div
+      className="grid grid-cols-4 gap-4 sm:gap-8"
+      role="timer"
+      aria-live="off"
+      aria-label="Time left to enter"
+    >
       {parts.map(([label, value]) => (
         <div key={label} className="flex flex-col items-center">
           <span className="glow font-display text-5xl font-black tabular-nums text-signal-500 sm:text-7xl">

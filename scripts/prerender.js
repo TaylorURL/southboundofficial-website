@@ -20,7 +20,7 @@ const preloadFonts = ['big-shoulders-display-var', 'archivo-var']
   .map((f) => `<link rel="preload" as="font" type="font/woff2" href="/assets/${f}" crossorigin />`)
   .join('\n    ');
 
-// React emits an image preload for each eager <img srcSet> into the body, where
+// React emits an image preload for each eager image with a srcSet into the body, where
 // the parser meets it no sooner than the image itself. Lifted into the head it
 // is found first, and given the largest source as its href for browsers that do
 // not read imagesrcset on a link.

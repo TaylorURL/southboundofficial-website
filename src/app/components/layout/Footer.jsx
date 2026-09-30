@@ -8,7 +8,7 @@ import { Monogram } from '@components/ui/Marks.jsx';
 
 export default function Footer() {
   return (
-    <footer className="border-t border-bone-50/10 bg-ink-950 pb-[calc(var(--thumb-bar-h)+1px+env(safe-area-inset-bottom))] text-bone-300 md:pb-0">
+    <footer className="border-t border-bone-50/10 bg-ink-950 pb-[calc(var(--thumb-bar-h)+1px+env(safe-area-inset-bottom))] text-bone-300 md:pb-6">
       <div className="mx-auto grid max-w-shell gap-10 px-5 pb-10 pt-16">
         <p className="slant max-w-[18ch] text-5xl text-bone-50 sm:text-7xl">
           Rep the merch. <span className="text-signal-500">Get entered.</span>
@@ -42,17 +42,22 @@ export default function Footer() {
           </nav>
         </div>
 
-        <p className="max-w-2xl text-xs leading-relaxed text-bone-500">
-          This site counts visits to see which pages get read, using a random ID stored in your
-          browser rather than a cookie. The{' '}
-          <Link
-            to="/privacy"
-            className="tap underline underline-offset-2 hover:text-bone-50 cursor-pointer active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal-500"
-          >
-            Privacy page
-          </Link>{' '}
-          says what the site keeps.
-        </p>
+        <div className="max-w-2xl space-y-1 text-xs leading-relaxed text-bone-500">
+          <p>
+            This site counts visits to see which pages get read, using a random ID stored in your
+            browser rather than a cookie.
+          </p>
+          <p>
+            The{' '}
+            <Link
+              to="/privacy"
+              className="tap underline underline-offset-2 hover:text-bone-50 cursor-pointer active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal-500"
+            >
+              Privacy page
+            </Link>{' '}
+            says what the site keeps.
+          </p>
+        </div>
       </div>
       <div className="text-bone-50">
         <SplitRail version={__BUILD_VERSION__} />
