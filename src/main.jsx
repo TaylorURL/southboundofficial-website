@@ -3,6 +3,7 @@ import { createRoot, hydrateRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from '@app/App.jsx';
 import './index.css';
+import { syncThemeColor } from '@app/themeColor.js';
 
 const container = document.getElementById('root');
 const tree = (
@@ -24,3 +25,5 @@ if (container.getAttribute('data-prerendered') === path) {
 } else {
   createRoot(container).render(tree);
 }
+
+syncThemeColor();

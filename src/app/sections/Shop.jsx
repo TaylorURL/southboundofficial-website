@@ -1,13 +1,7 @@
+import { Link } from 'react-router-dom';
 import { CATEGORIES, DROP } from '@constants/shop.js';
-import { Monogram, Wordmark } from '@components/ui/Marks.jsx';
-
-function Mark({ mark, className = '' }) {
-  return mark === 'wordmark' ? (
-    <Wordmark alt="" className={`w-4/5 -rotate-6 ${className}`} />
-  ) : (
-    <Monogram alt="" className={`w-1/2 ${className}`} />
-  );
-}
+import { Wordmark } from '@components/ui/Marks.jsx';
+import Plate from '@components/ui/Plate.jsx';
 
 // One tile per corner of the store, the way the drop is browsed on a phone:
 // tap a tile, land on that section.
@@ -20,11 +14,11 @@ function Tile({ href, label, ground, wide = false, labelClass = '', children }) 
         className="tap group relative grid aspect-square place-items-center overflow-hidden rounded-3xl hover:ring-2 hover:ring-signal-500 data-[wide]:aspect-[2/1] lg:data-[wide]:aspect-square cursor-pointer active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal-500"
       >
         <div aria-hidden="true" className={`absolute inset-0 ${ground}`} />
-        <div className="absolute inset-0 grid place-items-center opacity-60 transition-transform duration-nav group-hover:scale-105">
+        <div className="absolute inset-x-0 bottom-16 top-0 grid place-items-center px-4 pt-4 transition-transform duration-nav group-hover:scale-105 sm:bottom-20">
           {children}
         </div>
         <span
-          className={`slant relative px-3 text-center text-4xl sm:text-5xl ${labelClass || 'drop-shadow-[0_4px_14px_rgb(var(--ink-950)/0.9)]'}`}
+          className={`slant absolute inset-x-0 bottom-4 px-3 text-center text-3xl sm:bottom-5 sm:text-4xl ${labelClass}`}
         >
           {label}
         </span>
@@ -45,15 +39,15 @@ function CategoryArt({ category }) {
       className="h-full w-full object-cover"
     />
   ) : (
-    <Mark mark={category.mark} />
+    <Plate name={category.plate} className="h-full w-auto max-w-full" />
   );
 }
 
-function Product({ item }) {
+function Product({ item, plate }) {
   return (
     <li className="flex flex-col">
       <div className="sheen relative grid aspect-[4/5] place-items-center overflow-hidden rounded-2xl bg-ink-800">
-        <Mark mark={item.mark} />
+        <Plate name={plate} className="w-3/5 max-w-[12rem]" />
       </div>
       <div className="mt-4 flex items-start justify-between gap-3">
         <h4 className="font-semibold leading-snug">{item.name}</h4>
@@ -78,7 +72,20 @@ export default function Shop() {
     <section id="shop" className="below-fold px-5 py-20 sm:py-24">
       <div className="mx-auto max-w-shell">
         <div>
-          <h2 className="slant text-5xl sm:text-6xl">Shop the Drop</h2>
+          <header>
+            <h2 className="slant text-5xl sm:text-6xl">Shop the Drop</h2>
+            <p className="mt-4 max-w-md text-xs leading-relaxed text-bone-300">
+              No purchase necessary. A purchase does not improve your chances. Void where
+              prohibited. See the{' '}
+              <Link
+                to="/rules"
+                className="tap underline underline-offset-2 hover:text-bone-50 cursor-pointer active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal-500"
+              >
+                Official Rules
+              </Link>
+              .
+            </p>
+          </header>
 
           <ul className="mt-10 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-5">
             <Tile
@@ -115,7 +122,7 @@ export default function Shop() {
               <h3 className="slant block text-4xl sm:text-5xl">{category.label}</h3>
               <ul className="mt-8 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
                 {items.map((item) => (
-                  <Product key={item.id} item={item} />
+                  <Product key={item.id} item={item} plate={category.plate} />
                 ))}
               </ul>
             </div>

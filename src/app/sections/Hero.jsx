@@ -27,6 +27,11 @@ function Steps() {
 
 export default function Hero() {
   const live = Boolean(GIVEAWAY.prize && !Number.isNaN(Date.parse(GIVEAWAY.endsAt)));
+  const headline = live
+    ? GIVEAWAY.prize
+    : GIVEAWAY.number
+      ? `Giveaway No. ${GIVEAWAY.number}`
+      : 'Prize Reveal Soon';
 
   return (
     <section
@@ -49,13 +54,7 @@ export default function Hero() {
           <Wordmark eager className="w-full drop-shadow-[0_24px_60px_rgb(var(--ink-950)/0.85)]" />
         </h1>
 
-        {live ? (
-          <p className="slant glow mt-8 text-5xl text-signal-500 sm:text-7xl">{GIVEAWAY.prize}</p>
-        ) : (
-          <p className="slant glow mt-8 text-5xl text-signal-500 sm:text-7xl">
-            {GIVEAWAY.number ? `Giveaway No. ${GIVEAWAY.number}` : 'Prize Reveal Soon'}
-          </p>
-        )}
+        <p className="slant glow mt-8 text-5xl text-signal-500 sm:text-7xl">{headline}</p>
 
         {live && GIVEAWAY.image ? (
           <img
@@ -70,11 +69,8 @@ export default function Hero() {
         <Steps />
 
         {live ? (
-          <div className="mt-8 flex flex-col items-center">
-            <p className="slant text-3xl sm:text-4xl">Giveaway Ends In</p>
-            <div className="mt-5">
-              <Countdown endsAt={GIVEAWAY.endsAt} />
-            </div>
+          <div className="mt-8">
+            <Countdown endsAt={GIVEAWAY.endsAt} />
           </div>
         ) : null}
 
@@ -102,18 +98,6 @@ export default function Hero() {
             </a>
           )}
         </div>
-
-        <p className="mt-8 max-w-md text-xs leading-relaxed text-bone-300">
-          No purchase necessary. A purchase does not improve your chances. Void where prohibited.
-          See the{' '}
-          <Link
-            to="/rules"
-            className="tap underline underline-offset-2 hover:text-bone-50 cursor-pointer active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal-500"
-          >
-            Official Rules
-          </Link>
-          .
-        </p>
       </div>
     </section>
   );

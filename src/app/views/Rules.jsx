@@ -28,8 +28,10 @@ export default function Rules() {
     <LegalPage title="Official Rules" updated={RULES_UPDATED}>
       <div className="border-2 border-signal-500 bg-signal-500/10 p-6 sm:p-8">
         <p className="font-semibold uppercase leading-relaxed">
-          No purchase or payment of any kind is necessary to enter or win this sweepstakes. A
-          purchase or payment will not increase your chances of winning. Void where prohibited.
+          No purchase or payment of any kind is necessary to enter or win this sweepstakes.
+        </p>
+        <p className="mt-2 font-semibold uppercase leading-relaxed">
+          A purchase or payment will not increase your chances of winning. Void where prohibited.
         </p>
         <p className="mt-4 text-sm leading-relaxed text-bone-100">
           This sweepstakes is not sponsored, endorsed or administered by, or associated with,
@@ -40,9 +42,11 @@ export default function Rules() {
       <div className="mt-10">
         <Rule title="The Sweepstakes">
           <p>
-            The {name} (the “Sweepstakes”) is open only to legal residents of the United States and
-            is governed by United States law and the law of the State of {SPONSOR.state}. Do not
-            enter if you are not eligible under these Official Rules at the time you enter.
+            The {name} (the “Sweepstakes”) is open only to legal residents of the United States.
+          </p>
+          <p>It is governed by United States law and the law of the State of {SPONSOR.state}.</p>
+          <p>
+            Do not enter if you are not eligible under these Official Rules at the time you enter.
           </p>
         </Rule>
 
@@ -54,11 +58,14 @@ export default function Rules() {
         </Rule>
 
         <Rule title="Eligibility">
+          <p>Open to legal residents of the 50 United States and the District of Columbia.</p>
           <p>
-            Open to legal residents of the 50 United States and the District of Columbia who are at
-            least 18 years old, or the age of majority where they live if that is older, at the time
-            of entry. Employees of the Sponsor, and members of their immediate families and
-            households, are not eligible.
+            Entrants must be at least 18 years old at the time of entry, or the age of majority
+            where they live if that is older.
+          </p>
+          <p>
+            Employees of the Sponsor, and members of their immediate families and households, are
+            not eligible.
           </p>
         </Rule>
 
@@ -80,12 +87,20 @@ export default function Rules() {
           </p>
           <p>
             <strong className="text-bone-50">Free, by mail.</strong> Hand print your full name,
-            mailing address, email address, phone number and date of birth on a 3 by 5 inch card and
-            mail it in an envelope with enough postage to {sponsor}, Attn: SouthBound Giveaway,{' '}
-            {address}. Each card earns{' '}
+            mailing address, email address, phone number and date of birth on a 3 by 5 inch card.
+          </p>
+          <p>
+            Mail it in an envelope with enough postage to {sponsor}, Attn: SouthBound Giveaway,{' '}
+            {address}.
+          </p>
+          <p>
+            Each card earns{' '}
             <Fill value={GIVEAWAY.entriesPerFreeEntry} missing="Number of entries" /> entries. One
-            card per envelope. Cards must be received by the end of the Entry Period. Mechanically
-            reproduced, illegible or incomplete cards are void.
+            card per envelope.
+          </p>
+          <p>
+            Cards must be received by the end of the Entry Period. Mechanically reproduced,
+            illegible or incomplete cards are void.
           </p>
           <p>
             Entries made by script, bot or any automated means are void. The Sponsor is not
@@ -97,13 +112,18 @@ export default function Rules() {
           <p>
             One winner receives <Fill value={GIVEAWAY.prize} missing="The prize" />, with an
             approximate retail value of $
-            <Fill value={GIVEAWAY.prizeValue} missing="Retail value" />. No substitution, cash
-            equivalent or transfer of the prize, except that the Sponsor may substitute a prize of
-            equal or greater value if the stated prize becomes unavailable. The winner is
-            responsible for all taxes, fees and costs not stated here, including title, registration
-            and delivery where they apply, and the Sponsor will issue an IRS Form 1099 where the law
-            requires one.
+            <Fill value={GIVEAWAY.prizeValue} missing="Retail value" />.
           </p>
+          <p>The winner may not substitute, transfer or take cash for the prize.</p>
+          <p>
+            If the stated prize becomes unavailable, the Sponsor may substitute a prize of equal or
+            greater value.
+          </p>
+          <p>
+            The winner is responsible for all taxes, fees and costs not stated here, including
+            title, registration and delivery where they apply.
+          </p>
+          <p>The Sponsor will issue an IRS Form 1099 where the law requires one.</p>
         </Rule>
 
         <Rule title="Odds">
@@ -116,35 +136,51 @@ export default function Rules() {
         <Rule title="Winner Selection and Notification">
           <p>
             The winner is drawn at random from all eligible entries within seven days after the
-            Entry Period ends. The potential winner is contacted by the email or phone number given
-            with the entry and must respond within 72 hours. The potential winner may be asked to
-            sign an affidavit of eligibility and a liability and publicity release, and to show
-            photo ID, before the prize is awarded. If the potential winner does not respond in time,
-            is ineligible or does not comply with these rules, an alternate winner may be drawn.
+            Entry Period ends.
+          </p>
+          <p>
+            The potential winner is contacted by the email or phone number given with the entry and
+            must respond within 72 hours.
+          </p>
+          <p>
+            Before any award, the potential winner may have to sign an affidavit of eligibility and
+            a liability and publicity release, and show photo ID.
+          </p>
+          <p>
+            If the potential winner does not respond in time, is ineligible or does not comply with
+            these rules, an alternate winner may be drawn.
           </p>
         </Rule>
 
         <Rule title="Publicity">
           <p>
-            Except where prohibited, accepting the prize gives the Sponsor permission to use the
-            winner’s name, city, state and likeness to announce the winner on this site and on the
-            Sponsor’s social media, without further payment.
+            Except where prohibited, accepting the prize lets the Sponsor announce the winner here
+            and on its social media with their name, city, state and likeness.
           </p>
+          <p>No further payment is owed for that use.</p>
         </Rule>
 
         <Rule title="General Conditions">
           <p>
             By entering, you agree to these Official Rules and to the Sponsor’s decisions, which are
-            final. The Sponsor may disqualify anyone who tampers with the entry process or breaks
-            these rules, and may cancel, change or suspend the Sweepstakes if fraud, a technical
-            failure or anything else beyond its control affects its fairness. If it is cancelled,
-            the prize may be awarded by random drawing from the eligible entries received before the
-            cancellation.
+            final.
           </p>
           <p>
-            By entering, you release the Sponsor and its owners, employees and agents from any
-            liability for injury, loss or damage of any kind arising from taking part in the
-            Sweepstakes or from receiving or using the prize.
+            The Sponsor may disqualify anyone who tampers with the entry process or breaks these
+            rules.
+          </p>
+          <p>
+            The Sponsor may cancel, change or suspend the Sweepstakes if fraud, a technical failure
+            or anything else beyond its control affects its fairness.
+          </p>
+          <p>
+            If it is cancelled, the prize may be awarded by random drawing from the eligible entries
+            received before the cancellation.
+          </p>
+          <p>The Sponsor and its owners, employees and agents are the “Released Parties.”</p>
+          <p>
+            By entering, you release them from liability for any injury, loss or damage arising from
+            taking part or from receiving or using the prize.
           </p>
         </Rule>
 
@@ -156,11 +192,12 @@ export default function Rules() {
         </Rule>
 
         <Rule title="Winner’s Name">
+          <p>The winner is posted on this site and on Instagram at @{BRAND.instagram.handle}.</p>
           <p>
-            The winner is posted on this site and on Instagram at @{BRAND.instagram.handle}. For the
-            winner’s name by mail, send a self-addressed stamped envelope to {sponsor}, Attn:
-            SouthBound Winner, {address}, within 30 days after the Entry Period ends.
+            For the winner’s name by mail, send a self-addressed stamped envelope to {sponsor},
+            Attn: SouthBound Winner, {address}.
           </p>
+          <p>Send it within 30 days after the Entry Period ends.</p>
           <p>
             Questions: <Fill value={SPONSOR.email} missing="Sponsor's contact email" />.
           </p>
