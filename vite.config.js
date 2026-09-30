@@ -10,6 +10,16 @@ export default defineConfig({
   build: {
     target: 'es2022',
     modulePreload: { polyfill: false },
+    // React and the router change far less often than the site does, so they
+    // ship in a file of their own that a returning visitor keeps between deploys.
+    rollupOptions: {
+      output: {
+        manualChunks: (id) =>
+          id.includes('node_modules/react') || id.includes('node_modules/scheduler')
+            ? 'vendor'
+            : undefined,
+      },
+    },
   },
   define: { __BUILD_VERSION__: JSON.stringify(version) },
   // Mirrors the production headers in vercel.json so a local measurement sees
