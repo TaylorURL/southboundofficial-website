@@ -1,13 +1,13 @@
 // nav: n11-mega-menu. panel: mm4-full-bleed-canvas. Each trigger in the bar
 // opens one full-width panel of grouped destinations with a line on each and a
 // promo card beside them; the panel stays mounted and crossfades between
-// triggers. An announcement strip rides above the bar, slides away on the way
-// down and back on the way up, and can be dismissed. On a phone the Menu button
-// opens the same destinations as one sheet.
+// triggers. An announcement strip sits above the bar and scrolls away with the
+// page. On a phone the Menu button opens the same destinations as one sheet.
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { BRAND, NAV } from '@constants/brand.js';
 import InstagramIcon from '@components/ui/InstagramIcon.jsx';
+import { syncThemeColor } from '@app/themeColor.js';
 
 const THEMES = [
   ['dark', 'Dark'],
@@ -111,6 +111,7 @@ function ThemePicker() {
     const { value } = event.currentTarget.dataset;
     setTheme(value);
     document.documentElement.dataset.theme = value;
+    syncThemeColor();
     writeStore('theme', value);
   };
   return (
@@ -224,20 +225,12 @@ export default function Header() {
   const [active, setActive] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [raised, setRaised] = useState(false);
-  const [banner, setBanner] = useState(true);
   const [menuHeight, setMenuHeight] = useState(0);
   const shell = useRef(null);
   const sentinel = useRef(null);
-  const openRef = useRef(false);
   const closeTimer = useRef(0);
   const hoveredAt = useRef(0);
   const { pathname, hash } = useLocation();
-
-  // A dismissed banner stays dismissed; read after mount so the prerendered
-  // markup and the first client render agree.
-  useEffect(() => {
-    if (readStore('banner', '') === 'dismissed') setBanner(false);
-  }, []);
 
   // The bar gains its rule once the page has moved under it, read from an
   // observer on a pixel at the top rather than from every scroll event.
@@ -247,34 +240,6 @@ export default function Header() {
     const observer = new IntersectionObserver(([entry]) => setRaised(!entry.isIntersecting));
     observer.observe(target);
     return () => observer.disconnect();
-  }, []);
-
-  // Down past 48px hides the banner, the first upward scroll brings it back,
-  // and near the top it always shows. Direction is the one thing no observer
-  // reports, so this listens - passively, once a frame, and straight onto the
-  // element's attribute rather than through React. Nothing moves while a
-  // panel is open.
-  useEffect(() => {
-    let last = window.scrollY;
-    let frame = 0;
-    const onScroll = () => {
-      if (frame) return;
-      frame = requestAnimationFrame(() => {
-        frame = 0;
-        const y = window.scrollY;
-        const el = shell.current;
-        if (el && !openRef.current) {
-          if (y < 48 || y < last - 4) el.toggleAttribute('data-compact', false);
-          else if (y > last + 4) el.toggleAttribute('data-compact', true);
-        }
-        last = y;
-      });
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      cancelAnimationFrame(frame);
-    };
   }, []);
 
   const closeAll = useCallback(() => {
@@ -336,60 +301,33 @@ export default function Header() {
     setMenuOpen((value) => !value);
   };
 
-  const dismiss = () => {
-    setBanner(false);
-    writeStore('banner', 'dismissed');
-  };
-
   const open = Boolean(active) || menuOpen;
-  openRef.current = open;
-  // An open panel brings the banner back so the panel hangs where it was opened.
-  useEffect(() => {
-    if (open) shell.current?.removeAttribute('data-compact');
-  }, [open]);
-
   return (
     <>
+      {/* The announcement strip scrolls away with the page; the bar below it
+          docks to the top. It carries the no-purchase disclosure on every
+          page, so it has no dismiss. */}
+      <div className="announcement-bar relative flex h-banner items-center justify-center border-b border-signal-600 bg-signal-500 px-5 text-on-signal">
+        <p className="label flex items-center gap-4 whitespace-nowrap font-bold">
+          <span className="hidden sm:inline">Every Order Is an Entry</span>
+          <Link
+            to="/rules"
+            className="tap underline underline-offset-2 hover:opacity-80 cursor-pointer active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-signal"
+          >
+            No Purchase Necessary
+          </Link>
+        </p>
+        <a
+          href={BRAND.instagram.url}
+          target="_blank"
+          rel="noreferrer"
+          className="tap label absolute inset-y-0 right-2 hidden items-center gap-2 px-3 font-bold hover:opacity-70 md:inline-flex cursor-pointer active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-on-signal"
+        >
+          <InstagramIcon className="h-3.5 w-3.5" />@{BRAND.instagram.handle}
+        </a>
+      </div>
       <div ref={sentinel} aria-hidden="true" className="absolute top-0 h-2 w-px" />
-      <div
-        ref={shell}
-        data-banner={banner ? '' : undefined}
-        className="nav-shell sticky top-0 z-header bg-ink-900"
-      >
-        {banner && (
-          <div className="announcement-bar relative flex h-banner items-center justify-center bg-signal-500 px-12 text-on-signal">
-            <p className="label flex items-center gap-4 whitespace-nowrap font-bold">
-              <span className="hidden sm:inline">Every Order Is an Entry</span>
-              <Link
-                to="/rules"
-                className="tap underline underline-offset-2 hover:opacity-80 cursor-pointer active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-signal"
-              >
-                No Purchase Necessary
-              </Link>
-            </p>
-            <div className="absolute inset-y-0 right-2 flex items-center">
-              <a
-                href={BRAND.instagram.url}
-                target="_blank"
-                rel="noreferrer"
-                className="tap label hidden h-banner items-center gap-2 px-3 font-bold hover:opacity-70 md:inline-flex cursor-pointer active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-on-signal"
-              >
-                <InstagramIcon className="h-3.5 w-3.5" />@{BRAND.instagram.handle}
-              </a>
-              <button
-                type="button"
-                onClick={dismiss}
-                aria-label="Dismiss the banner"
-                className="tap grid h-banner w-11 place-items-center hover:opacity-70 cursor-pointer active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-on-signal"
-              >
-                <svg aria-hidden="true" viewBox="0 0 12 12" className="h-3 w-3" fill="none">
-                  <path d="M2 2l8 8M10 2L2 10" stroke="currentColor" strokeWidth="1.8" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        )}
-
+      <div ref={shell} className="sticky top-0 z-header bg-ink-900">
         <header
           data-raised={raised || open ? '' : undefined}
           onPointerLeave={release}

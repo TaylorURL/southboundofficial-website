@@ -61,7 +61,7 @@
   line-gap-override: 0%;
 }
 
-/* nav: n11-mega-menu - columns: 2, feature cell: promo card, scrim: dim only, open on: hover+click; a retracting announcement strip rides above it */
+/* nav: n11-mega-menu - columns: 2, feature cell: promo card, scrim: dim only, open on: hover+click; an announcement strip sits above it and scrolls away */
 /* footer: ft5-statement */
 /* panel: mm4-full-bleed-canvas */
 
@@ -175,14 +175,6 @@
 }
 
 @layer components {
-  /* The banner and bar travel together; retracting moves the pair up by the
-     banner's own height, so the bar docks to the top with no gap. */
-  .nav-shell {
-    transition: transform var(--nav-duration) var(--nav-ease);
-  }
-  .nav-shell[data-banner][data-compact] {
-    transform: translateY(calc(var(--banner-h) * -1));
-  }
   /* Visibility changes at the visible end of the transition in both
      directions, so the same declaration opens and closes. */
   .nav-panel {
@@ -222,7 +214,6 @@
     opacity: 1;
   }
   @media (prefers-reduced-motion: reduce) {
-    .nav-shell,
     .nav-panel,
     .nav-panel__body,
     .nav-scrim {

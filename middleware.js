@@ -48,11 +48,12 @@ const PAGE = `<!doctype html>
     <meta name="robots" content="noindex" />
     <title>Temporarily Unavailable | SouthBound</title>
     <style>
+      @font-face { font-family: 'Archivo Fallback'; src: local('Helvetica Neue'), local('Arial'); size-adjust: 97%; ascent-override: 92%; descent-override: 24%; line-gap-override: 0%; }
       :root { color-scheme: light dark; --ground: 250 250 250; --ink: 26 26 26; --muted: 74 74 74; --faint: 106 106 106; }
       @media (prefers-color-scheme: dark) {
         :root { --ground: 20 20 20; --ink: 240 240 240; --muted: 196 196 196; --faint: 154 154 154; }
       }
-      body { margin: 0; min-height: 100dvh; display: grid; place-items: center; background: rgb(var(--ground)); color: rgb(var(--ink)); font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+      body { margin: 0; min-height: 100dvh; display: grid; place-items: center; background: rgb(var(--ground)); color: rgb(var(--ink)); font-family: 'Archivo Fallback', sans-serif; -webkit-font-smoothing: antialiased; }
       main { max-width: 32rem; padding: 2rem 1.5rem; text-align: center; }
       h1 { margin: 0 0 0.75rem; font-size: 1.5rem; line-height: 1.3; overflow-wrap: anywhere; text-wrap: balance; }
       p { margin: 0 0 1rem; color: rgb(var(--muted)); line-height: 1.6; }
