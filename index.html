@@ -170,6 +170,14 @@
         // as an http 404 through the fetch wrapper below, so nothing that
         // matters is lost by skipping these tags.
         var MEDIA_LIFECYCLE_TAGS = { SOURCE: 1, VIDEO: 1, AUDIO: 1, TRACK: 1, PICTURE: 1 };
+        // A link that only hints at a resource is the same case. Gecko fires this
+        // error on a preload it cancelled as readily as on one it could not fetch,
+        // so a reader who leaves while the head's preloads are still in flight
+        // fires it on every one of them, naming files that are serving perfectly.
+        // Nothing a reader sees depends on a hint either way: the stylesheet,
+        // script, image or font makes its own request, and that request reports
+        // its own failure through this handler or through the fetch wrapper below.
+        var HINT_REL = /(^|\s)(preload|prefetch|modulepreload|preconnect|dns-prefetch)(\s|$)/i;
         // Capture phase, because element load failures fire error events that do not bubble.
         window.addEventListener(
           'error',
@@ -177,6 +185,8 @@
             try {
               if (event.target && event.target !== window && event.target.tagName) {
                 if (MEDIA_LIFECYCLE_TAGS[event.target.tagName]) return;
+                if (event.target.tagName === 'LINK' && HINT_REL.test(event.target.rel || ''))
+                  return;
                 report(
                   'resource',
                   'Failed to load ' +
