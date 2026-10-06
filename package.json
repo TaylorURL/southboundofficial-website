@@ -2,7 +2,7 @@
   "name": "southboundofficial-website",
   "private": true,
   "license": "UNLICENSED",
-  "version": "2026.40.5",
+  "version": "2026.41.0",
   "type": "module",
   "engines": {
     "node": ">=22"
