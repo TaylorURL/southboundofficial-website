@@ -178,6 +178,19 @@
         // script, image or font makes its own request, and that request reports
         // its own failure through this handler or through the fetch wrapper below.
         var HINT_REL = /(^|\s)(preload|prefetch|modulepreload|preconnect|dns-prefetch)(\s|$)/i;
+        // A tag carrying data-optional is one the page has already decided it can
+        // do without: appended after the load event, asked for by nothing the
+        // reader sees, and read by no other script. It is also the only request
+        // left in flight once load has fired, since every other subresource is
+        // what load was waiting on, so it is the one request a reader who moves
+        // on, backgrounds the tab or loses signal cancels - and a cancelled
+        // request fires this error exactly as a broken one does. Reporting it
+        // describes the visitor's departure rather than a fault in the page, so
+        // the tag that knows it is optional says so and this handler believes it.
+        // Every other script keeps reporting, because nothing else here is optional.
+        function optional(target) {
+          return !!(target.hasAttribute && target.hasAttribute('data-optional'));
+        }
         // Capture phase, because element load failures fire error events that do not bubble.
         window.addEventListener(
           'error',
@@ -187,6 +200,7 @@
                 if (MEDIA_LIFECYCLE_TAGS[event.target.tagName]) return;
                 if (event.target.tagName === 'LINK' && HINT_REL.test(event.target.rel || ''))
                   return;
+                if (optional(event.target)) return;
                 report(
                   'resource',
                   'Failed to load ' +
@@ -267,6 +281,9 @@
         tracker.dataset.site = 'sa_f9004be19a1815a7433dbb435e06b2c2';
         tracker.crossOrigin = 'anonymous';
         tracker.async = true;
+        // Nothing on the page waits on this or reads from it, so a load it does
+        // not finish is a visit that goes uncounted and nothing more.
+        tracker.dataset.optional = '';
         document.head.appendChild(tracker);
       });
     </script>
