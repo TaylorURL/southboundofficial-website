@@ -27,9 +27,21 @@
 
 ## Pages
 
-| Route | Holds                                                                 |
-| :---- | :-------------------------------------------------------------------- |
-| `/`   | The current giveaway, the drop, how entries work, winners and the FAQ |
+| Route           | Holds                                                         |
+| :-------------- | :------------------------------------------------------------ |
+| `/`             | The current giveaway, then a tile for each corner of the shop |
+| `/shop`         | The tiles on their own                                        |
+| `/shop/:id`     | One category's products: shirts, hoodies, caps or decals      |
+| `/giveaway`     | The prize, the countdown and the three steps to an entry      |
+| `/how-it-works` | How an order earns entries and how the winner is drawn        |
+| `/winners`      | Every winner and the prize they took home                     |
+| `/faq`          | Entries, the free entry, the draw and where it is announced   |
+| `/rules`        | The Official Rules                                            |
+| `/contact`      | How to reach SouthBound                                       |
+| `/privacy`      | What the site records                                         |
+| `/terms`        | The terms of using the site                                   |
+
+Every tile and every menu link opens a page of its own; nothing scrolls the visitor down the page it was tapped on.
 
 ## Stack
 
