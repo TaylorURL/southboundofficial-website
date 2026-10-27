@@ -4,7 +4,12 @@
 
 ## Pages
 
-- [Home](https://southboundofficial.website/): the current giveaway, the drop by category, how entries work, winners and the FAQ
+- [Home](https://southboundofficial.website/): the current giveaway and the drop by category
+- [Shop](https://southboundofficial.website/shop): the drop by category, each with a page of its own: [Shirts](https://southboundofficial.website/shop/shirts), [Hoodies](https://southboundofficial.website/shop/hoodies), [Caps](https://southboundofficial.website/shop/caps) and [Decals](https://southboundofficial.website/shop/decals)
+- [Current Giveaway](https://southboundofficial.website/giveaway): the prize and the time left to enter
+- [How It Works](https://southboundofficial.website/how-it-works): how an order earns entries and how the winner is drawn
+- [Winners](https://southboundofficial.website/winners): every winner and the prize they took home
+- [FAQ](https://southboundofficial.website/faq): entries, the free entry by mail, the draw and where giveaways are announced
 - [Official Rules](https://southboundofficial.website/rules): eligibility, entry period, how to enter with an order or free by mail, the prize, odds and winner selection
 - [Contact](https://southboundofficial.website/contact): reach SouthBound by Instagram direct message
 - [Privacy](https://southboundofficial.website/privacy): what the site records and who sees it

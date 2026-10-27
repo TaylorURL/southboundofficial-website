@@ -378,12 +378,12 @@ export default function Header() {
             </nav>
 
             <div className="flex items-center gap-3">
-              <a
-                href="/#shop"
+              <Link
+                to="/shop"
                 className={`btn-signal hidden h-11 px-5 hover:opacity-90 md:inline-flex cursor-pointer active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal-500`}
               >
                 Shop to Enter
-              </a>
+              </Link>
               <button
                 id="menu-trigger"
                 type="button"
@@ -425,12 +425,12 @@ export default function Header() {
             <MenuIcon open={menuOpen} />
             {menuOpen ? 'Close' : 'Menu'}
           </button>
-          <a
-            href="/#shop"
+          <Link
+            to="/shop"
             className={`btn-signal h-12 flex-[2] px-3 hover:opacity-90 cursor-pointer active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal-500`}
           >
             Shop to Enter
-          </a>
+          </Link>
         </div>
       </div>
     </>

@@ -19,15 +19,15 @@ export const NAV = [
     label: 'Shop',
     heading: 'Categories',
     items: [
-      { href: '/#shop-shirts', label: 'Shirts', note: 'Tees with the SouthBound wordmark' },
-      { href: '/#shop-hoodies', label: 'Hoodies', note: 'The SB hoodie' },
-      { href: '/#shop-caps', label: 'Caps', note: 'The SB snapback' },
-      { href: '/#shop-decals', label: 'Decals', note: 'Die-cut SouthBound decals' },
+      { href: '/shop/shirts', label: 'Shirts', note: 'Tees with the SouthBound wordmark' },
+      { href: '/shop/hoodies', label: 'Hoodies', note: 'The SB hoodie' },
+      { href: '/shop/caps', label: 'Caps', note: 'The SB snapback' },
+      { href: '/shop/decals', label: 'Decals', note: 'Die-cut SouthBound decals' },
     ],
     feature: {
       title: 'Every order is an entry',
       body: 'Anything you buy enters you in the giveaway open at checkout.',
-      href: '/#shop',
+      href: '/shop',
       cta: 'Shop All',
     },
   },
@@ -37,17 +37,21 @@ export const NAV = [
     heading: 'The Giveaway',
     items: [
       {
-        href: '/#giveaway',
+        href: '/giveaway',
         label: 'Current Giveaway',
         note: 'The prize and the time left to enter',
       },
-      { href: '/#how', label: 'How It Works', note: 'Shop, check out, and you are entered' },
+      {
+        href: '/how-it-works',
+        label: 'How It Works',
+        note: 'Shop, check out, and you are entered',
+      },
       {
         href: '/rules',
         label: 'Official Rules',
         note: 'Who can enter, the free entry and the draw',
       },
-      { href: '/#winners', label: 'Past Winners', note: 'Everyone who has won so far' },
+      { href: '/winners', label: 'Past Winners', note: 'Everyone who has won so far' },
     ],
     feature: {
       title: 'No purchase necessary',
@@ -61,7 +65,7 @@ export const NAV = [
     label: 'Help',
     heading: 'Help',
     items: [
-      { href: '/#faq', label: 'FAQ', note: 'Entries, free entry and the draw' },
+      { href: '/faq', label: 'FAQ', note: 'Entries, free entry and the draw' },
       { href: '/contact', label: 'Contact', note: 'Ask SouthBound a question' },
       { href: '/privacy', label: 'Privacy', note: 'What the site keeps and why' },
       { href: '/terms', label: 'Terms', note: 'The terms for using the site' },
