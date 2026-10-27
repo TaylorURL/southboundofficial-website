@@ -9,7 +9,7 @@
 <p align="center"><a href="https://southboundofficial.website">southboundofficial.website</a> · <a href="https://www.instagram.com/southbound_offical/">Instagram</a></p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-2026.44.0-0a0a0a?style=for-the-badge" alt="Version 2026.44.0" />
+  <img src="https://img.shields.io/badge/version-2026.44.1-0a0a0a?style=for-the-badge" alt="Version 2026.44.1" />
 </p>
 
 SouthBound sells shirts, hoodies, caps and decals to the truck crowd, and every order is an entry into the giveaway that's open at checkout. Giveaways are announced on Instagram first. The site holds the shop, the current giveaway with its countdown, the official rules and the winners.
