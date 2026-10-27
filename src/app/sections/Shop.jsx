@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom';
-import { CATEGORIES, DROP } from '@constants/shop.js';
+import { CATEGORIES } from '@constants/shop.js';
 import { Wordmark } from '@components/ui/Marks.jsx';
 import Plate from '@components/ui/Plate.jsx';
 
 // One tile per corner of the store, the way the drop is browsed on a phone:
-// tap a tile, land on that section.
-function Tile({ href, label, ground, wide = false, labelClass = '', children }) {
+// tap a tile and that corner opens as a page of its own.
+function Tile({ to, label, ground, wide = false, labelClass = '', children }) {
   return (
     <li className={wide ? 'col-span-2 lg:col-span-1' : undefined}>
-      <a
-        href={href}
+      <Link
+        to={to}
         data-wide={wide ? '' : undefined}
         className="tap group relative grid aspect-square place-items-center overflow-hidden rounded-3xl hover:ring-2 hover:ring-signal-500 data-[wide]:aspect-[2/1] lg:data-[wide]:aspect-square cursor-pointer active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal-500"
       >
@@ -22,7 +22,7 @@ function Tile({ href, label, ground, wide = false, labelClass = '', children }) 
         >
           {label}
         </span>
-      </a>
+      </Link>
     </li>
   );
 }
@@ -43,91 +43,54 @@ function CategoryArt({ category }) {
   );
 }
 
-function Product({ item, plate }) {
+// The home page ends on these tiles, and the Shop page is these tiles. On the
+// Shop page the heading is the page's own.
+export default function Shop({ page = false }) {
+  const Heading = page ? 'h1' : 'h2';
   return (
-    <li className="flex flex-col">
-      <div className="sheen relative grid aspect-[4/5] place-items-center overflow-hidden rounded-2xl bg-ink-800">
-        <Plate name={plate} className="w-3/5 max-w-[12rem]" />
-      </div>
-      <div className="mt-4 flex items-start justify-between gap-3">
-        <h4 className="font-semibold leading-snug">{item.name}</h4>
-        {item.price ? <p className="font-mono text-sm">{item.price}</p> : null}
-      </div>
-      <p className="label mt-4 inline-flex w-fit bg-signal-500 px-2 py-1 font-bold text-on-signal">
-        Earns Entries
-      </p>
-      <button
-        type="button"
-        disabled={!item.price}
-        className="btn-line mt-4 w-full disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal-500 hover:opacity-90"
-      >
-        {item.price ? 'Add to Cart' : 'Drops Soon'}
-      </button>
-    </li>
-  );
-}
-
-export default function Shop() {
-  return (
-    <section id="shop" className="below-fold px-5 py-20 sm:py-24">
+    <section
+      id="shop"
+      className={`px-5 ${page ? 'pb-24 pt-14 sm:pt-20' : 'below-fold py-20 sm:py-24'}`}
+    >
       <div className="mx-auto max-w-shell">
-        <div>
-          <header>
-            <h2 className="slant text-5xl sm:text-6xl">Shop the Drop</h2>
-            <p className="mt-4 max-w-md text-xs leading-relaxed text-bone-300">
-              No purchase necessary. A purchase does not improve your chances. Void where
-              prohibited. See the{' '}
-              <Link
-                to="/rules"
-                className="tap underline underline-offset-2 hover:text-bone-50 cursor-pointer active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal-500"
-              >
-                Official Rules
-              </Link>
-              .
-            </p>
-          </header>
+        <header>
+          <Heading className={`slant ${page ? 'text-6xl sm:text-7xl' : 'text-5xl sm:text-6xl'}`}>
+            Shop the Drop
+          </Heading>
+          <p className="mt-4 max-w-md text-xs leading-relaxed text-bone-300">
+            No purchase necessary. A purchase does not improve your chances. Void where prohibited.
+            See the{' '}
+            <Link
+              to="/rules"
+              className="tap underline underline-offset-2 hover:text-bone-50 cursor-pointer active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal-500"
+            >
+              Official Rules
+            </Link>
+            .
+          </p>
+        </header>
 
-          <ul className="mt-10 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-5">
+        <ul className="mt-10 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-5">
+          <Tile
+            to="/giveaway"
+            label="Giveaway"
+            wide
+            labelClass="text-on-signal"
+            ground="bg-[radial-gradient(circle_at_50%_40%,rgb(var(--signal-400)),rgb(var(--signal-600))_55%,rgb(var(--signal-900)))]"
+          >
+            <Wordmark alt="" className="w-3/5 -rotate-6 lg:w-4/5" />
+          </Tile>
+          {CATEGORIES.map((category) => (
             <Tile
-              href="#giveaway"
-              label="Giveaway"
-              wide
-              labelClass="text-on-signal"
-              ground="bg-[radial-gradient(circle_at_50%_40%,rgb(var(--signal-400)),rgb(var(--signal-600))_55%,rgb(var(--signal-900)))]"
-            >
-              <Wordmark alt="" className="w-3/5 -rotate-6 lg:w-4/5" />
-            </Tile>
-            {CATEGORIES.map((category) => (
-              <Tile
-                key={category.id}
-                href={`#shop-${category.id}`}
-                label={category.label}
-                ground="sheen bg-ink-800"
-              >
-                <CategoryArt category={category} />
-              </Tile>
-            ))}
-          </ul>
-        </div>
-
-        {CATEGORIES.map((category) => {
-          const items = DROP.filter((item) => item.category === category.id);
-          if (!items.length) return null;
-          return (
-            <div
               key={category.id}
-              id={`shop-${category.id}`}
-              className="mt-16 border-t border-bone-50/10 pt-10"
+              to={`/shop/${category.id}`}
+              label={category.label}
+              ground="sheen bg-ink-800"
             >
-              <h3 className="slant block text-4xl sm:text-5xl">{category.label}</h3>
-              <ul className="mt-8 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
-                {items.map((item) => (
-                  <Product key={item.id} item={item} plate={category.plate} />
-                ))}
-              </ul>
-            </div>
-          );
-        })}
+              <CategoryArt category={category} />
+            </Tile>
+          ))}
+        </ul>
       </div>
     </section>
   );

@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-2026.43.0-0a0a0a?style=for-the-badge" alt="Version 2026.43.0" />
+  <img src="https://img.shields.io/badge/version-2026.44.0-0a0a0a?style=for-the-badge" alt="Version 2026.44.0" />
   <img src="https://img.shields.io/badge/React-19-0a0a0a?style=for-the-badge&logo=react&logoColor=white" alt="React 19" />
   <img src="https://img.shields.io/badge/Vite-7-0a0a0a?style=for-the-badge&logo=vite&logoColor=white" alt="Vite 7" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-3-0a0a0a?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS 3" />
@@ -27,9 +27,21 @@
 
 ## Pages
 
-| Route | Holds                                                                 |
-| :---- | :-------------------------------------------------------------------- |
-| `/`   | The current giveaway, the drop, how entries work, winners and the FAQ |
+| Route           | Holds                                                         |
+| :-------------- | :------------------------------------------------------------ |
+| `/`             | The current giveaway, then a tile for each corner of the shop |
+| `/shop`         | The tiles on their own                                        |
+| `/shop/:id`     | One category's products: shirts, hoodies, caps or decals      |
+| `/giveaway`     | The prize, the countdown and the three steps to an entry      |
+| `/how-it-works` | How an order earns entries and how the winner is drawn        |
+| `/winners`      | Every winner and the prize they took home                     |
+| `/faq`          | Entries, the free entry, the draw and where it is announced   |
+| `/rules`        | The Official Rules                                            |
+| `/contact`      | How to reach SouthBound                                       |
+| `/privacy`      | What the site records                                         |
+| `/terms`        | The terms of using the site                                   |
+
+Every tile and every menu link opens a page of its own; nothing scrolls the visitor down the page it was tapped on.
 
 ## Stack
 

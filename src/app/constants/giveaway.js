@@ -20,3 +20,12 @@ export const GIVEAWAY = {
 };
 
 export const ENTRY_STEPS = ['Shop', 'Check Out', 'Entered'];
+
+// Open once there is both a prize and an end time to count down to.
+export const LIVE = Boolean(GIVEAWAY.prize && !Number.isNaN(Date.parse(GIVEAWAY.endsAt)));
+
+export const HEADLINE = LIVE
+  ? GIVEAWAY.prize
+  : GIVEAWAY.number
+    ? `Giveaway No. ${GIVEAWAY.number}`
+    : 'Prize Reveal Soon';
