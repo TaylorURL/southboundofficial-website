@@ -6,7 +6,7 @@ Merch store and giveaway site for the SouthBound truck brand.
 
 [southboundofficial.website](https://southboundofficial.website) · [Instagram](https://www.instagram.com/southbound_offical/)
 
-<img src="https://img.shields.io/badge/version-2026.44.1-0a0a0a?style=for-the-badge" alt="Version 2026.44.1" />
+<img src="https://img.shields.io/badge/version-2026.44.2-0a0a0a?style=for-the-badge" alt="Version 2026.44.2" />
 
 Shirts, hoodies, caps and decals, where every order is an entry into the open giveaway. The site holds the shop, the current giveaway with its countdown, how entries work, the official rules with a free mail-in entry, and the winners.
 
