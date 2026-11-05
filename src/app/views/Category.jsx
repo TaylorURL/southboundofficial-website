@@ -5,11 +5,25 @@ import Plate from '@components/ui/Plate.jsx';
 import NotFound from '@views/NotFound.jsx';
 import { usePageTitle } from '@app/hooks/usePageTitle.js';
 
+// A product with a photo shows it; one without carries its category's plate.
 function Product({ item, plate }) {
+  const { image } = item;
   return (
     <li className="flex flex-col">
       <div className="sheen relative grid aspect-[4/5] place-items-center overflow-hidden rounded-2xl bg-ink-800">
-        <Plate name={plate} className="w-3/5 max-w-[12rem]" />
+        {image ? (
+          <img
+            src={image.src}
+            alt=""
+            width={image.width}
+            height={image.height}
+            loading="lazy"
+            decoding="async"
+            className="h-auto w-[88%] object-contain"
+          />
+        ) : (
+          <Plate name={plate} className="w-3/5 max-w-[12rem]" />
+        )}
       </div>
       <div className="mt-4 flex items-start justify-between gap-3">
         <h2 className="font-semibold leading-snug">{item.name}</h2>
