@@ -27,16 +27,19 @@ function Tile({ to, label, ground, wide = false, labelClass = '', children }) {
   );
 }
 
+// A photo is fitted whole inside the tile rather than cropped to its square:
+// the decals are wide, and a crop would cut the name off them.
 function CategoryArt({ category }) {
-  return category.image ? (
+  const { image } = category;
+  return image ? (
     <img
-      src={category.image}
+      src={image.src}
       alt=""
-      width="600"
-      height="600"
+      width={image.width}
+      height={image.height}
       loading="lazy"
       decoding="async"
-      className="h-full w-full object-cover"
+      className="h-auto max-h-full w-full object-contain"
     />
   ) : (
     <Plate name={category.plate} className="h-full w-auto max-w-full" />
