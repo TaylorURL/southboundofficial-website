@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { CATEGORIES, DROP } from '@constants/shop.js';
 import Page from '@components/layout/Page.jsx';
+import Photo from '@components/ui/Photo.jsx';
 import Plate from '@components/ui/Plate.jsx';
 import NotFound from '@views/NotFound.jsx';
 import { usePageTitle } from '@app/hooks/usePageTitle.js';
@@ -12,14 +13,11 @@ function Product({ item, plate }) {
     <li className="flex flex-col">
       <div className="sheen relative grid aspect-[4/5] place-items-center overflow-hidden rounded-2xl bg-ink-800">
         {image ? (
-          <img
-            src={image.src}
-            alt=""
-            width={image.width}
-            height={image.height}
-            loading="lazy"
-            decoding="async"
+          <Photo
+            image={image}
+            plate={plate}
             className="h-auto w-[88%] object-contain"
+            plateClassName="w-3/5 max-w-[12rem]"
           />
         ) : (
           <Plate name={plate} className="w-3/5 max-w-[12rem]" />
