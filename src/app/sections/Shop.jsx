@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { CATEGORIES } from '@constants/shop.js';
 import { Wordmark } from '@components/ui/Marks.jsx';
+import Photo from '@components/ui/Photo.jsx';
 import Plate from '@components/ui/Plate.jsx';
 
 // One tile per corner of the store, the way the drop is browsed on a phone:
@@ -32,14 +33,11 @@ function Tile({ to, label, ground, wide = false, labelClass = '', children }) {
 function CategoryArt({ category }) {
   const { image } = category;
   return image ? (
-    <img
-      src={image.src}
-      alt=""
-      width={image.width}
-      height={image.height}
-      loading="lazy"
-      decoding="async"
+    <Photo
+      image={image}
+      plate={category.plate}
       className="h-auto max-h-full w-full object-contain"
+      plateClassName="h-full w-auto max-w-full"
     />
   ) : (
     <Plate name={category.plate} className="h-full w-auto max-w-full" />
