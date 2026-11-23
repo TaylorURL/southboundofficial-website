@@ -122,10 +122,54 @@
           if (held.length < 50)
             held.push({ kind: kind, message: String(message), stack: String(stack || '') });
         }
+        // A tag carrying data-recovers has an owner inside the page that asks
+        // for the file a second time when the first request fails, and that
+        // knows how the second ask ended. Its first failure is therefore not an
+        // outcome yet. A request a reader cancelled by walking away from the
+        // page, and a single dropped packet, both fire this same error, and the
+        // second ask is what exists to tell either of those from a file that is
+        // genuinely not there.
+        //
+        // So the report is held rather than dropped. It is sent the instant the
+        // owner gives up, through `failed` below, and it is sent anyway once
+        // the wait runs out if nothing ever answers for it - which is what a
+        // page whose bundle never ran looks like, and the case that keeps a
+        // missing file reportable with no script of ours alive to notice.
+        // Nothing here is muted: a file that really is not there still arrives,
+        // about a second after the first try, through `failed`.
+        var RECOVERY_WAIT_MS = 10000;
+        var pending = {};
+        function recovers(target) {
+          return !!(target.hasAttribute && target.hasAttribute('data-recovers'));
+        }
+        function defer(url, message) {
+          if (pending[url]) return;
+          pending[url] = setTimeout(function () {
+            delete pending[url];
+            report('resource', message);
+          }, RECOVERY_WAIT_MS);
+        }
+        function settle(url) {
+          var timer = pending[url];
+          if (!timer) return;
+          clearTimeout(timer);
+          delete pending[url];
+        }
         window.__reporter = {
           held: held,
           replay: function () {
             return held.slice();
+          },
+          // The owner of a data-recovers tag calls exactly one of these two for
+          // every failure it is handed. A file that arrived on a later try was
+          // never something the owner of the site could act on; one the page has
+          // given up on is reported at once rather than at the end of the wait.
+          recovered: function (url) {
+            settle(url);
+          },
+          failed: function (url, message) {
+            settle(url);
+            report('resource', message || 'Failed to load img: ' + url);
           },
         };
         function report(kind, message, stack) {
@@ -201,13 +245,13 @@
                 if (event.target.tagName === 'LINK' && HINT_REL.test(event.target.rel || ''))
                   return;
                 if (optional(event.target)) return;
-                report(
-                  'resource',
-                  'Failed to load ' +
-                    event.target.tagName.toLowerCase() +
-                    ': ' +
-                    (event.target.src || event.target.href || ''),
-                );
+                var file = event.target.src || event.target.href || '';
+                var failure = 'Failed to load ' + event.target.tagName.toLowerCase() + ': ' + file;
+                if (recovers(event.target)) {
+                  defer(file, failure);
+                  return;
+                }
+                report('resource', failure);
               } else {
                 report('uncaught', event.message, event.error && event.error.stack);
               }
